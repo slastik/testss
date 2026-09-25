@@ -1591,8 +1591,15 @@
       var select_title = '';
       var prefer_http = Lampa.Storage.field('online_mod_prefer_http') === true;
       var prefer_mp4 = Lampa.Storage.field('online_mod_prefer_mp4') === true;
-      var proxy_mirror = Lampa.Storage.field('online_mod_proxy_rezka2_mirror') === true;
-      var prox = component.proxy('rezka2');
+      
+      //   var proxy_mirror = Lampa.Storage.field('online_mod_proxy_rezka2_mirror') === true;
+      //   var prox = component.proxy('rezka2');
+      // Browser patch: route HDRezka requests through the configured CORS proxy
+      // while continuing to use the mirror selected in settings.
+      var proxy_mirror = true;
+      var prox = component.proxy('cookie2');
+
+
       var host = prox && !proxy_mirror ? Utils.rezka2Host() : Utils.rezka2Mirror();
       var ref = host + '/';
       var logged_in = !(prox || Lampa.Platform.is('android'));
